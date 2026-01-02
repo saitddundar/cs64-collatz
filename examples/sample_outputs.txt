@@ -1,0 +1,180 @@
+======================================================================
+COLLATZ KRIPTOGRAFIK ALGORITMA - ORNEK CIKTILAR
+======================================================================
+
+[ANAHTAR BILGILERI]
+  Collatz Seed: 27
+  Affine a: 5
+  Affine b: 8
+  Transposition Key: 3142
+  Modulus: 256
+  Affine a^(-1): 205
+
+======================================================================
+SIFRELEME ORNEKLERI
+======================================================================
+
+--- ORNEK 1 ---
+Duz Metin: "Hello World"
+Uzunluk: 11 karakter
+
+[ADIM 1] UTF-8 -> Byte:
+  Hex: 48656c6c6f20576f726c64
+
+[ADIM 2] Collatz XOR:
+  Hex: ed31f8c53baac3c5d0c42d
+
+[ADIM 3] Affine Cipher (a=5, b=8):
+  Hex: a9fde0e12f5ad7e118dce9
+
+[ADIM 4] Transposition (key=3142):
+  Hex: fde1a9e05ae12fd7dc0018e9
+
+[BIT ANALIZI]
+  Toplam bit: 96
+  0 sayisi: 47
+  1 sayisi: 49
+  Denge orani (0/1): 0.9592
+
+[SONUC] Sifreli Metin: fde1a9e05ae12fd7dc0018e9
+
+[SIFRE COZME]
+  Cozulmus: "Hello World"
+  DOGRULAMA: BASARILI
+
+--- ORNEK 2 ---
+Duz Metin: "Cryptography Test 123"
+Uzunluk: 21 karakter
+
+[ADIM 1] UTF-8 -> Byte:
+  Hex: 43727970746f677261706879205465737420313233
+
+[ADIM 2] Collatz XOR:
+  Hex: e626edd920e5f3d8c3d8217188752fda5d7298271a
+
+[ADIM 3] Affine Cipher (a=5, b=8):
+  Hex: 86c6a945a881c740d740ad3db051f34ad94200cb8a
+
+[ADIM 4] Transposition (key=3142):
+  Hex: c64586a98140a8c7403dd7ad514ab0f342cbd90000008a00
+
+[BIT ANALIZI]
+  Toplam bit: 192
+  0 sayisi: 120
+  1 sayisi: 72
+  Denge orani (0/1): 1.6667
+
+[SONUC] Sifreli Metin: c64586a98140a8c7403dd7ad514ab0f342cbd90000008a00
+
+[SIFRE COZME]
+  Cozulmus: "Cryptography Test 123"
+  DOGRULAMA: BASARILI
+
+--- ORNEK 3 ---
+Duz Metin: "ABCDEFGHIJKLMNOP"
+Uzunluk: 16 karakter
+
+[ADIM 1] UTF-8 -> Byte:
+  Hex: 4142434445464748494a4b4c4d4e4f50
+
+[ADIM 2] Collatz XOR:
+  Hex: e416d7ed11ccd3e2ebe20244e56f05f9
+
+[ADIM 3] Affine Cipher (a=5, b=8):
+  Hex: 7c763ba95d0427729f72125c813321e5
+
+[ADIM 4] Transposition (key=3142):
+  Hex: 76a97c3b04725d27725c9f1233e58121
+
+[BIT ANALIZI]
+  Toplam bit: 128
+  0 sayisi: 66
+  1 sayisi: 62
+  Denge orani (0/1): 1.0645
+
+[SONUC] Sifreli Metin: 76a97c3b04725d27725c9f1233e58121
+
+[SIFRE COZME]
+  Cozulmus: "ABCDEFGHIJKLMNOP"
+  DOGRULAMA: BASARILI
+
+--- ORNEK 4 ---
+Duz Metin: "The quick brown fox jumps over the lazy dog"
+Uzunluk: 43 karakter
+
+[ADIM 1] UTF-8 -> Byte:
+  Hex: 54686520717569636b2062726f776e20666f78206a756d7073206f76657220746865206c617a7920646f67
+
+[ADIM 2] Collatz XOR:
+  Hex: f13cf18925fffdc9c9882b7ac75624894f3dd13543202820e1313f34f02072d13a4f72c6ebdb5d02c4ea4d
+
+[ADIM 3] Affine Cipher (a=5, b=8):
+  Hex: bd34bdb5c103f9f5f5b0df6aebb6bcb593391d1157a8d0a86dfd430cb8a8421d2a9342e69f4fd912dc9a89
+
+[ADIM 4] Transposition (key=3142):
+  Hex: 34b5bdbd03f5c1f9b06af5dfb6b5ebbc3911931da8a857d0fd0c6d43a81db84293e62a424f129fd99a00dc89
+
+[BIT ANALIZI]
+  Toplam bit: 352
+  0 sayisi: 172
+  1 sayisi: 180
+  Denge orani (0/1): 0.9556
+
+[SONUC] Sifreli Metin: 34b5bdbd03f5c1f9b06af5dfb6b5ebbc3911931da8a857d0fd0c6d43a81db84293e62a424f129fd99a00dc89
+
+[SIFRE COZME]
+  Cozulmus: "The quick brown fox jumps over the lazy dog"
+  DOGRULAMA: BASARILI
+
+======================================================================
+ANAHTAR URETECI ORNEKLERI
+======================================================================
+
+[RASTGELE ANAHTAR SETLERI]
+
+  Anahtar #1:
+    Seed: 881
+    Affine a: 165
+    Affine b: 128
+    Trans Key: 3412
+    Export: 881:165:128:3412
+
+  Anahtar #2:
+    Seed: 791
+    Affine a: 41
+    Affine b: 39
+    Trans Key: 1423
+    Export: 791:41:39:1423
+
+  Anahtar #3:
+    Seed: 614
+    Affine a: 231
+    Affine b: 79
+    Trans Key: 4123
+    Export: 614:231:79:4123
+
+======================================================================
+COLLATZ DIZISI ORNEKLERI
+======================================================================
+
+[Seed = 27]
+  64 bit uretimi:
+  0 sayisi: 37
+  1 sayisi: 27
+  Denge: 1.3704
+
+[Seed = 42]
+  64 bit uretimi:
+  0 sayisi: 56
+  1 sayisi: 8
+  Denge: 7.0000
+
+[Seed = 100]
+  64 bit uretimi:
+  0 sayisi: 45
+  1 sayisi: 19
+  Denge: 2.3684
+
+======================================================================
+TEST TAMAMLANDI
+======================================================================

@@ -1,0 +1,175 @@
+======================================================================
+ISTATISTIKSEL TEST SONUCLARI
+======================================================================
+
+======================================================================
+TEST #1: "Hello World..."
+======================================================================
+
+Veri Bilgisi:
+  Byte sayisi: 12
+  Bit sayisi: 96
+
+[Monobit (Frekans) Testi]
+  n: 96
+  ones: 49
+  zeros: 47
+  s_obs: 0.204124
+  p_value: 0.838256
+  passed: True
+  SONUC: BASARILI
+
+[Ki-Kare Testi]
+  chi_square: 9.250000
+  degrees_of_freedom: 11
+  p_value: 0.598828
+  passed: True
+  SONUC: BASARILI
+
+[Runs Testi]
+  runs: 39
+  expected: 48.979167
+  z_score: -1.444446
+  p_value: 0.148614
+  passed: True
+  SONUC: BASARILI
+
+[Byte Frekans Analizi]
+  total_bytes: 12
+  unique_bytes: 11
+  chi_square: 286.666667
+  p_value: 0.084212
+  passed: True
+  SONUC: BASARILI
+
+OZET: 4/4 test basarili
+
+======================================================================
+TEST #2: "The quick brown fox jumps over the lazy ..."
+======================================================================
+
+Veri Bilgisi:
+  Byte sayisi: 44
+  Bit sayisi: 352
+
+[Monobit (Frekans) Testi]
+  n: 352
+  ones: 180
+  zeros: 172
+  s_obs: 0.426401
+  p_value: 0.669815
+  passed: True
+  SONUC: BASARILI
+
+[Ki-Kare Testi]
+  chi_square: 26.500000
+  degrees_of_freedom: 43
+  p_value: 0.977386
+  passed: True
+  SONUC: BASARILI
+
+[Runs Testi]
+  runs: 176
+  expected: 176.909091
+  z_score: -0.068592
+  p_value: 0.945315
+  passed: True
+  SONUC: BASARILI
+
+[Byte Frekans Analizi]
+  total_bytes: 44
+  unique_bytes: 36
+  chi_square: 316.727273
+  p_value: 0.005108
+  passed: False
+  SONUC: BASARISIZ
+
+OZET: 3/4 test basarili
+
+======================================================================
+TEST #3: "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMN..."
+======================================================================
+
+Veri Bilgisi:
+  Byte sayisi: 132
+  Bit sayisi: 1056
+
+[Monobit (Frekans) Testi]
+  n: 1056
+  ones: 517
+  zeros: 539
+  s_obs: 0.677003
+  p_value: 0.498404
+  passed: True
+  SONUC: BASARILI
+
+[Ki-Kare Testi]
+  chi_square: 75.250000
+  degrees_of_freedom: 131
+  p_value: 0.999976
+  passed: True
+  SONUC: BASARILI
+
+[Runs Testi]
+  runs: 521
+  expected: 528.770833
+  z_score: -0.338336
+  p_value: 0.735110
+  passed: True
+  SONUC: BASARILI
+
+[Byte Frekans Analizi]
+  total_bytes: 132
+  unique_bytes: 86
+  chi_square: 333.454545
+  p_value: 0.000689
+  passed: False
+  SONUC: BASARISIZ
+
+OZET: 3/4 test basarili
+
+======================================================================
+TEST #4: "0123456789012345678901234567890123456789..."
+======================================================================
+
+Veri Bilgisi:
+  Byte sayisi: 200
+  Bit sayisi: 1600
+
+[Monobit (Frekans) Testi]
+  n: 1600
+  ones: 765
+  zeros: 835
+  s_obs: 1.750000
+  p_value: 0.080118
+  passed: True
+  SONUC: BASARILI
+
+[Ki-Kare Testi]
+  chi_square: 110.250000
+  degrees_of_freedom: 199
+  p_value: 1.000000
+  passed: True
+  SONUC: BASARILI
+
+[Runs Testi]
+  runs: 758
+  expected: 799.468750
+  z_score: -1.467776
+  p_value: 0.142165
+  passed: True
+  SONUC: BASARILI
+
+[Byte Frekans Analizi]
+  total_bytes: 200
+  unique_bytes: 89
+  chi_square: 547.520000
+  p_value: 0.000000
+  passed: False
+  SONUC: BASARISIZ
+
+OZET: 3/4 test basarili
+
+======================================================================
+TUM TESTLER TAMAMLANDI
+======================================================================
