@@ -1,34 +1,34 @@
-# 📝 SÖZDE KOD (PSEUDOCODE)
+# SOZDE KOD (PSEUDOCODE)
 
-## Collatz Tabanlı Şifreleme Algoritması
+## Collatz Tabanli Sifreleme Algoritmasi
 
 ---
 
-## 1. ANAHTAR ÜRETİMİ
+## 1. ANAHTAR URETIMI
 
 ```
 FUNCTION GenerateKeySet():
-    // Collatz Seed Üretimi
+    // Collatz Seed Uretimi
     seed = SecureRandom(10, 1000)
     
     // Affine Cipher Parametreleri
-    // a değeri 256 ile aralarında asal olmalı
+    // a degeri 256 ile aralarinda asal olmali
     valid_a_values = FindAllCoprimes(256)
     a = RandomChoice(valid_a_values)
     b = SecureRandom(0, 255)
     
-    // Modüler ters hesapla (şifre çözme için)
+    // Moduler ters hesapla (sifre cozme icin)
     a_inverse = ModularInverse(a, 256)
     
-    // Transposition Anahtarı
-    trans_key = GeneratePermutation(4)  // Örn: "3142"
+    // Transposition Anahtari
+    trans_key = GeneratePermutation(4)  // Orn: "3142"
     
     RETURN {seed, a, b, a_inverse, trans_key}
 ```
 
 ---
 
-## 2. COLLATZ DİZİSİ ÜRETİMİ
+## 2. COLLATZ DIZISI URETIMI
 
 ```
 FUNCTION GenerateCollatzBits(seed, length):
@@ -37,14 +37,14 @@ FUNCTION GenerateCollatzBits(seed, length):
     
     WHILE Length(bits) < length:
         IF current == 1:
-            current = seed  // Yeniden başlat
+            current = seed  // Yeniden baslat
         ENDIF
         
         IF current MOD 2 == 0:
-            Append(bits, 0)     // Çift → 0
+            Append(bits, 0)     // Cift -> 0
             current = current / 2
         ELSE:
-            Append(bits, 1)     // Tek → 1
+            Append(bits, 1)     // Tek -> 1
             current = 3 * current + 1
         ENDIF
     ENDWHILE
@@ -56,21 +56,21 @@ FUNCTION GenerateCollatzBits(seed, length):
 
 ## 3. AFFINE CIPHER
 
-### 3.1 Şifreleme
+### 3.1 Sifreleme
 ```
 FUNCTION AffineEncrypt(byte, a, b, m):
-    // E(x) = (a × x + b) mod m
+    // E(x) = (a * x + b) mod m
     RETURN (a * byte + b) MOD m
 ```
 
-### 3.2 Şifre Çözme
+### 3.2 Sifre Cozme
 ```
 FUNCTION AffineDecrypt(byte, a_inverse, b, m):
-    // D(y) = a^(-1) × (y - b) mod m
+    // D(y) = a^(-1) * (y - b) mod m
     RETURN (a_inverse * (byte - b)) MOD m
 ```
 
-### 3.3 Modüler Ters Hesaplama
+### 3.3 Moduler Ters Hesaplama
 ```
 FUNCTION ModularInverse(a, m):
     // Extended Euclidean Algorithm
@@ -91,10 +91,10 @@ FUNCTION ModularInverse(a, m):
 
 ## 4. TRANSPOSITION CIPHER
 
-### 4.1 Anahtar Sıralama
+### 4.1 Anahtar Siralama
 ```
 FUNCTION ParseTransKey(key):
-    // "3142" → [2, 0, 3, 1] (0-indexed pozisyonlar)
+    // "3142" -> [2, 0, 3, 1] (0-indexed pozisyonlar)
     key_nums = [CharToInt(c) FOR c IN key]
     sorted_indices = []
     
@@ -104,7 +104,7 @@ FUNCTION ParseTransKey(key):
     RETURN sorted_indices
 ```
 
-### 4.2 Şifreleme
+### 4.2 Sifreleme
 ```
 FUNCTION TransposeEncrypt(data, key):
     key_order = ParseTransKey(key)
@@ -119,7 +119,7 @@ FUNCTION TransposeEncrypt(data, key):
             block = Pad(block, key_len)
         ENDIF
         
-        // Yeniden sırala
+        // Yeniden sirala
         new_block = []
         FOR old_pos = 0 TO key_len:
             new_pos = key_order[old_pos]
@@ -130,25 +130,25 @@ FUNCTION TransposeEncrypt(data, key):
     RETURN result
 ```
 
-### 4.3 Şifre Çözme
+### 4.3 Sifre Cozme
 ```
 FUNCTION TransposeDecrypt(data, key):
     key_order = ParseTransKey(key)
     reverse_order = InverseMapping(key_order)
-    // Aynı mantık, ters sıralama ile
+    // Ayni mantik, ters siralama ile
     ...
 ```
 
 ---
 
-## 5. XOR İŞLEMİ
+## 5. XOR ISLEMI
 
 ```
 FUNCTION XorWithCollatz(data, seed):
     needed_bits = Length(data) * 8
     collatz_bits = GenerateCollatzBits(seed, needed_bits)
     
-    // Bitleri byte'lara dönüştür
+    // Bitleri byte'lara donustur
     collatz_bytes = []
     FOR i = 0 TO needed_bits STEP 8:
         byte_bits = collatz_bits[i : i + 8]
@@ -165,25 +165,25 @@ FUNCTION XorWithCollatz(data, seed):
 
 ---
 
-## 6. ANA ŞİFRELEME
+## 6. ANA SIFRELEME
 
 ```
 FUNCTION Encrypt(plaintext, keyset):
-    // Adım 1: Metin → Byte
+    // Adim 1: Metin -> Byte
     data = TextToBytes(plaintext, "UTF-8")
     original_length = Length(data)
     
-    // Adım 2: Collatz XOR
+    // Adim 2: Collatz XOR
     data = XorWithCollatz(data, keyset.seed)
     
-    // Adım 3: Affine Cipher
+    // Adim 3: Affine Cipher
     FOR i = 0 TO Length(data):
         data[i] = AffineEncrypt(data[i], keyset.a, keyset.b, 256)
     
-    // Adım 4: Transposition
+    // Adim 4: Transposition
     data = TransposeEncrypt(data, keyset.trans_key)
     
-    // Adım 5: Hex çıktı
+    // Adim 5: Hex cikti
     ciphertext = BytesToHex(data)
     
     RETURN (ciphertext, original_length)
@@ -191,24 +191,24 @@ FUNCTION Encrypt(plaintext, keyset):
 
 ---
 
-## 7. ANA ŞİFRE ÇÖZME
+## 7. ANA SIFRE COZME
 
 ```
 FUNCTION Decrypt(ciphertext_hex, keyset, original_length):
-    // Adım 1: Hex → Byte
+    // Adim 1: Hex -> Byte
     data = HexToBytes(ciphertext_hex)
     
-    // Adım 2: Transposition (ters)
+    // Adim 2: Transposition (ters)
     data = TransposeDecrypt(data, keyset.trans_key)
     
-    // Adım 3: Affine Cipher (ters)
+    // Adim 3: Affine Cipher (ters)
     FOR i = 0 TO Length(data):
         data[i] = AffineDecrypt(data[i], keyset.a_inverse, keyset.b, 256)
     
-    // Adım 4: Collatz XOR
+    // Adim 4: Collatz XOR
     data = XorWithCollatz(data, keyset.seed)
     
-    // Adım 5: Padding kaldır ve metin döndür
+    // Adim 5: Padding kaldir ve metin dondur
     data = data[0 : original_length]
     plaintext = BytesToText(data, "UTF-8")
     
@@ -217,7 +217,7 @@ FUNCTION Decrypt(ciphertext_hex, keyset, original_length):
 
 ---
 
-## 8. DENGE KONTROLÜ
+## 8. DENGE KONTROLU
 
 ```
 FUNCTION AnalyzeBitBalance(data):
@@ -234,11 +234,11 @@ FUNCTION AnalyzeBitBalance(data):
 
 ---
 
-## 📋 Özet Akış
+## OZET AKIS
 
 ```
 ┌─────────────────┐
-│   Düz Metin     │
+│   Duz Metin     │
 └────────┬────────┘
          │ UTF-8 Encode
          ▼
@@ -253,11 +253,11 @@ FUNCTION AnalyzeBitBalance(data):
          │ Affine Encrypt
          ▼
 ┌─────────────────┐
-│  Affine Çıktı   │
+│  Affine Cikti   │
 └────────┬────────┘
          │ Transpose
          ▼
 ┌─────────────────┐
-│  Şifreli Metin  │
+│  Sifreli Metin  │
 └─────────────────┘
 ```

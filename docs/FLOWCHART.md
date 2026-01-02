@@ -1,36 +1,36 @@
-# 🔄 AKIŞ ŞEMASI (FLOWCHART)
+# AKIS SEMASI (FLOWCHART)
 
-## Collatz Tabanlı Kriptografik Algoritma
+## Collatz Tabanli Kriptografik Algoritma
 
 ---
 
-## 1. ANA ŞİFRELEME AKIŞI
+## 1. ANA SIFRELEME AKISI
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                        BAŞLA                                        │
+│                        BASLA                                        │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    GİRDİ: Düz Metin (Plaintext)                     │
+│                    GIRDI: Duz Metin (Plaintext)                     │
 │                    Anahtarlar: seed, a, b, trans_key                │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │                 ADIM 1: UTF-8 ENCODING                              │
-│                 Metin → Byte Dizisi                                 │
-│                 "AB" → [65, 66]                                     │
+│                 Metin -> Byte Dizisi                                │
+│                 "AB" -> [65, 66]                                    │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │                 ADIM 2: COLLATZ XOR                                 │
 │                 ┌─────────────────────────────────┐                 │
-│                 │ Collatz Dizisi Üret             │                 │
-│                 │ n çift → 0, n tek → 1           │                 │
-│                 │ Bitler → Byte dönüşümü          │                 │
+│                 │ Collatz Dizisi Uret             │                 │
+│                 │ n cift -> 0, n tek -> 1         │                 │
+│                 │ Bitler -> Byte donusumu         │                 │
 │                 └─────────────────────────────────┘                 │
 │                 data = data XOR collatz_bytes                       │
 └─────────────────────────────────────────────────────────────────────┘
@@ -39,8 +39,8 @@
 ┌─────────────────────────────────────────────────────────────────────┐
 │                 ADIM 3: AFFINE CIPHER                               │
 │                 ┌─────────────────────────────────┐                 │
-│                 │ Her byte için:                  │                 │
-│                 │ E(x) = (a × x + b) mod 256      │                 │
+│                 │ Her byte icin:                  │                 │
+│                 │ E(x) = (a * x + b) mod 256      │                 │
 │                 └─────────────────────────────────┘                 │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
@@ -48,91 +48,91 @@
 ┌─────────────────────────────────────────────────────────────────────┐
 │                 ADIM 4: TRANSPOSITION                               │
 │                 ┌─────────────────────────────────┐                 │
-│                 │ Veriyi bloklara böl             │                 │
-│                 │ Her bloğu key sırasına göre     │                 │
-│                 │ yeniden düzenle                 │                 │
+│                 │ Veriyi bloklara bol             │                 │
+│                 │ Her blogu key sirasina gore    │                 │
+│                 │ yeniden duzenle                 │                 │
 │                 └─────────────────────────────────┘                 │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                 ADIM 5: HEX DÖNÜŞÜMÜ                                │
-│                 Byte Dizisi → Hex String                            │
-│                 [73, 0, 182, 0] → "4900b600"                        │
+│                 ADIM 5: HEX DONUSUMU                                │
+│                 Byte Dizisi -> Hex String                           │
+│                 [73, 0, 182, 0] -> "4900b600"                       │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                 ÇIKTI: Şifreli Metin (Ciphertext)                   │
-│                 + Metadata (orijinal uzunluk, bit dağılımı)         │
+│                 CIKTI: Sifreli Metin (Ciphertext)                   │
+│                 + Metadata (orijinal uzunluk, bit dagilimi)         │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                        BİTTİ                                        │
+│                        BITTI                                        │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 2. ŞİFRE ÇÖZME AKIŞI
+## 2. SIFRE COZME AKISI
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                        BAŞLA                                        │
+│                        BASLA                                        │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                 GİRDİ: Şifreli Hex String                           │
+│                 GIRDI: Sifreli Hex String                           │
 │                 Anahtarlar: seed, a, b, trans_key                   │
 │                 Orijinal Uzunluk                                    │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                 ADIM 1: HEX → BYTE                                  │
-│                 "4900b600" → [73, 0, 182, 0]                        │
+│                 ADIM 1: HEX -> BYTE                                 │
+│                 "4900b600" -> [73, 0, 182, 0]                       │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │                 ADIM 2: TRANSPOSITION (TERS)                        │
-│                 Ters anahtar sıralaması uygula                      │
+│                 Ters anahtar siralamasi uygula                      │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │                 ADIM 3: AFFINE CIPHER (TERS)                        │
-│                 D(y) = a⁻¹ × (y - b) mod 256                        │
+│                 D(y) = a^(-1) * (y - b) mod 256                     │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │                 ADIM 4: COLLATZ XOR                                 │
-│                 Aynı XOR işlemi (terslenebilir)                     │
+│                 Ayni XOR islemi (terslenebilir)                     │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
 │                 ADIM 5: UTF-8 DECODE                                │
-│                 Byte → Metin + Padding kaldır                       │
+│                 Byte -> Metin + Padding kaldir                      │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                 ÇIKTI: Düz Metin (Plaintext)                        │
+│                 CIKTI: Duz Metin (Plaintext)                        │
 └─────────────────────────────────────────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                        BİTTİ                                        │
+│                        BITTI                                        │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 3. COLLATZ BİT ÜRETİMİ
+## 3. COLLATZ BIT URETIMI
 
 ```
 ┌─────────────────┐
@@ -142,28 +142,28 @@
          ▼
 ┌─────────────────┐
 │  length'e       │
-│  ulaşıldı mı?   │
+│  ulasildi mi?   │
 └────────┬────────┘
     │         │
    EVET      HAYIR
     │         │
     ▼         ▼
 ┌───────┐   ┌─────────────────┐
-│ DÖNDÜR│   │    n == 1 ?     │
+│ DONDUR│   │    n == 1 ?     │
 │ bits  │   └────────┬────────┘
 └───────┘       │         │
               EVET      HAYIR
                 │         │
                 ▼         ▼
           ┌─────────┐   ┌─────────────────┐
-          │n = seed │   │  n çift mi?     │
+          │n = seed │   │  n cift mi?     │
           └────┬────┘   └────────┬────────┘
                │            │         │
                │          EVET      HAYIR
                │            │         │
                │            ▼         ▼
                │      ┌─────────┐ ┌─────────┐
-               │      │bits ← 0 │ │bits ← 1 │
+               │      │bits <- 0│ │bits <- 1│
                │      │n = n/2  │ │n = 3n+1 │
                │      └────┬────┘ └────┬────┘
                │           │           │
@@ -171,7 +171,7 @@
                            │
                            └──────────────────┐
                                               │
-                                    (tekrar yukarı)
+                                    (tekrar yukari)
 ```
 
 ---
@@ -179,19 +179,19 @@
 ## 4. AFFINE CIPHER DETAY
 
 ```
-        ŞİFRELEME                           ŞİFRE ÇÖZME
+        SIFRELEME                           SIFRE COZME
 ┌─────────────────────┐             ┌─────────────────────┐
-│   GİRDİ: byte x     │             │   GİRDİ: byte y     │
+│   GIRDI: byte x     │             │   GIRDI: byte y     │
 └─────────┬───────────┘             └─────────┬───────────┘
           │                                   │
           ▼                                   ▼
 ┌─────────────────────┐             ┌─────────────────────┐
-│    temp = a × x     │             │   temp = y - b      │
+│    temp = a * x     │             │   temp = y - b      │
 └─────────┬───────────┘             └─────────┬───────────┘
           │                                   │
           ▼                                   ▼
 ┌─────────────────────┐             ┌─────────────────────┐
-│   temp = temp + b   │             │  temp = a⁻¹ × temp  │
+│   temp = temp + b   │             │  temp = a^(-1)*temp │
 └─────────┬───────────┘             └─────────┬───────────┘
           │                                   │
           ▼                                   ▼
@@ -201,7 +201,7 @@
           │                                   │
           ▼                                   ▼
 ┌─────────────────────┐             ┌─────────────────────┐
-│   ÇIKTI: result     │             │   ÇIKTI: result     │
+│   CIKTI: result     │             │   CIKTI: result     │
 └─────────────────────┘             └─────────────────────┘
 ```
 
@@ -216,99 +216,123 @@
          └───┴───┴───┴───┘
               │
               ▼
-         SIRALAMA (küçükten büyüğe):
-         1→poz 2, 2→poz 4, 3→poz 1, 4→poz 3
+         SIRALAMA (kucukten buyuge):
+         1->poz 2, 2->poz 4, 3->poz 1, 4->poz 3
               │
               ▼
-         YENİ SIRA: [2, 4, 1, 3] (1-indexed)
+         YENI SIRA: [2, 4, 1, 3] (1-indexed)
                   : [1, 3, 0, 2] (0-indexed)
               │
               ▼
     ┌─────────────────────────────────────┐
-    │         ŞİFRELEME ÖRNEĞİ            │
+    │         SIFRELEME ORNEGI            │
     │                                     │
     │  Orijinal:  A   B   C   D           │
     │  Pozisyon:  0   1   2   3           │
     │                                     │
     │  Yeni poz:  1   3   0   2           │
-    │  Sonuç:     B   D   A   C           │
+    │  Sonuc:     B   D   A   C           │
     │                                     │
     │  Pozisyon:  0   1   2   3           │
-    │  Şifreli:   B   D   A   C           │
+    │  Sifreli:   B   D   A   C           │
     └─────────────────────────────────────┘
 ```
 
 ---
 
-## 6. MERMAID DIAGRAM (GitHub Uyumlu)
+## 6. MERMAID DIAGRAM
 
 ```mermaid
 flowchart TD
-    A[Başla] --> B[Düz Metin Girişi]
+    A[BASLA] --> B[Duz Metin Girisi]
     B --> C[UTF-8 Encoding]
-    C --> D[Collatz Bit Üretimi]
-    D --> E[XOR İşlemi]
+    C --> D[Collatz Bit Uretimi]
+    D --> E[XOR Islemi]
     E --> F[Affine Cipher]
     F --> G[Transposition]
-    G --> H[Hex Dönüşümü]
-    H --> I[Şifreli Metin Çıktısı]
-    I --> J[Bitir]
-    
-    subgraph Collatz
-        D1[n = seed] --> D2{n == 1?}
-        D2 -->|Evet| D3[n = seed]
-        D2 -->|Hayır| D4{n çift?}
-        D4 -->|Evet| D5[bit = 0, n = n/2]
-        D4 -->|Hayır| D6[bit = 1, n = 3n+1]
+    G --> H[Hex Donusumu]
+    H --> I[Sifreli Metin Ciktisi]
+    I --> J[BITTI]
+```
+
+---
+
+## 7. COLLATZ BIT URETIMI - MERMAID
+
+```mermaid
+flowchart TD
+    S[n = seed] --> A{length ulasti mi?}
+    A -->|Evet| R[bits dondur]
+    A -->|Hayir| B{n == 1?}
+    B -->|Evet| C[n = seed]
+    B -->|Hayir| D{n cift mi?}
+    C --> D
+    D -->|Evet| E[bit = 0]
+    D -->|Hayir| F[bit = 1]
+    E --> G[n = n / 2]
+    F --> H[n = 3n + 1]
+    G --> A
+    H --> A
+```
+
+---
+
+## 8. AFFINE CIPHER - MERMAID
+
+```mermaid
+flowchart LR
+    subgraph Sifreleme
+        X1[x girdi] --> M1[temp = a * x]
+        M1 --> M2[temp = temp + b]
+        M2 --> M3[result = temp mod 256]
+        M3 --> Y1[sifreli byte]
     end
     
-    subgraph Affine
-        F1[x giriş] --> F2["temp = a × x + b"]
-        F2 --> F3["result = temp mod 256"]
-    end
-    
-    subgraph Transpose
-        G1[Veri bloklara bölünür] --> G2[Her blok key sırasına göre düzenlenir]
+    subgraph Cozme
+        Y2[y girdi] --> D1[temp = y - b]
+        D1 --> D2[temp = a_inv * temp]
+        D2 --> D3[result = temp mod 256]
+        D3 --> X2[cozulmus byte]
     end
 ```
 
 ---
 
-## 7. ANAHTAR ÜRETİMİ AKIŞI
+## 9. ANAHTAR URETIMI AKISI
 
 ```
 ┌─────────────────────────────────────────┐
-│              BAŞLA                      │
+│              BASLA                      │
 └────────────────┬────────────────────────┘
                  │
                  ▼
 ┌─────────────────────────────────────────┐
-│  Collatz Seed Üret                      │
+│  Collatz Seed Uret                      │
 │  seed = SecureRandom(10, 1000)          │
 └────────────────┬────────────────────────┘
                  │
                  ▼
 ┌─────────────────────────────────────────┐
-│  Affine Parametreleri Üret              │
+│  Affine Parametreleri Uret              │
 │  a = RandomCoprime(256)                 │
 │  b = SecureRandom(0, 255)               │
-│  a⁻¹ = ModInverse(a, 256)               │
+│  a_inv = ModInverse(a, 256)             │
 └────────────────┬────────────────────────┘
                  │
                  ▼
 ┌─────────────────────────────────────────┐
-│  Transposition Key Üret                 │
+│  Transposition Key Uret                 │
 │  key = Shuffle([1,2,3,4])               │
 └────────────────┬────────────────────────┘
                  │
                  ▼
 ┌─────────────────────────────────────────┐
-│  ÇIKTI: {seed, a, b, a⁻¹, key}          │
+│  CIKTI: {seed, a, b, a_inv, key}        │
 │  Format: "27:5:8:3142"                  │
 └────────────────┬────────────────────────┘
                  │
                  ▼
 ┌─────────────────────────────────────────┐
-│              BİTİR                      │
+│              BITTI                      │
 └─────────────────────────────────────────┘
 ```

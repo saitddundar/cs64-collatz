@@ -1,260 +1,258 @@
-# 📚 ALGORİTMA AÇIKLAMASI
+# ALGORITMA ACIKLAMASI
 
-## Collatz Tabanlı Kriptografik Algoritma
-
----
-
-## 1. 🎯 GİRİŞ
-
-Bu algoritma, **Collatz Sanısı** üzerine kurulu, iki katmanlı şifreleme sisteminden oluşan özgün bir kriptografik yöntemdir:
-
-1. **Affine Cipher** - Matematiksel dönüşüm
-2. **Transposition Cipher** - Pozisyon karıştırma
+## Collatz Tabanli Kriptografik Algoritma
 
 ---
 
-## 2. 🔢 COLLATZ SANISI
+## 1. GIRIS
 
-### Tanım
-Collatz sanısı, herhangi bir pozitif tam sayı için tekrarlanan işlemlerle sonunda 1'e ulaşılacağını öne sürer:
+Bu algoritma, **Collatz Sanisi** uzerine kurulu, iki katmanli sifreleme sisteminden olusan ozgun bir kriptografik yontemdir:
 
-| Koşul | İşlem |
+1. **Affine Cipher** - Matematiksel donusum
+2. **Transposition Cipher** - Pozisyon karistirma
+
+---
+
+## 2. COLLATZ SANISI
+
+### Tanim
+Collatz sanisi, herhangi bir pozitif tam sayi icin tekrarlanan islemlerle sonunda 1'e ulasilacagini one surer:
+
+| Kosul | Islem |
 |-------|-------|
-| Sayı **çift** | `n → n / 2` |
-| Sayı **tek** | `n → 3n + 1` |
+| Sayi **cift** | `n -> n / 2` |
+| Sayi **tek** | `n -> 3n + 1` |
 
-### Örnek: n = 27
+### Ornek: n = 27
 ```
-27 → 82 → 41 → 124 → 62 → 31 → 94 → 47 → 142 → ...
+27 -> 82 -> 41 -> 124 -> 62 -> 31 -> 94 -> 47 -> 142 -> ...
 ```
 
-### Kriptografide Kullanımı
-Her adımda:
-- **Çift sayıya gidildi** → `0` biti
-- **Tek sayıya gidildi** → `1` biti
+### Kriptografide Kullanimi
+Her adimda:
+- **Cift sayiya gidildi** -> `0` biti
+- **Tek sayiya gidildi** -> `1` biti
 
-Bu sayede deterministik ama tahmin edilmesi zor bir bit dizisi üretilir.
+Bu sayede deterministik ama tahmin edilmesi zor bir bit dizisi uretilir.
 
 ---
 
-## 3. 🔐 AFFINE CIPHER
+## 3. AFFINE CIPHER
 
-### Matematiksel Tanım
+### Matematiksel Tanim
 
-**Şifreleme:**
+**Sifreleme:**
 ```
-E(x) = (a × x + b) mod m
+E(x) = (a * x + b) mod m
 ```
 
-**Şifre Çözme:**
+**Sifre Cozme:**
 ```
-D(y) = a⁻¹ × (y - b) mod m
+D(y) = a^(-1) * (y - b) mod m
 ```
 
 ### Parametreler
 
-| Parametre | Açıklama | Kısıtlama |
+| Parametre | Aciklama | Kisitlama |
 |-----------|----------|-----------|
-| `a` | Çarpan | `gcd(a, m) = 1` (aralarında asal) |
-| `b` | Toplam | `0 ≤ b < m` |
-| `m` | Modulus | 256 (byte için) |
-| `a⁻¹` | a'nın tersi | Extended Euclidean Algorithm |
+| `a` | Carpan | `gcd(a, m) = 1` (aralrinda asal) |
+| `b` | Toplam | `0 <= b < m` |
+| `m` | Modulus | 256 (byte icin) |
+| `a^(-1)` | a'nin tersi | Extended Euclidean Algorithm |
 
-### Örnek
+### Ornek
 ```
 a = 5, b = 8, m = 256
 
-Şifreleme: E(65) = (5 × 65 + 8) mod 256 = 333 mod 256 = 77
-Şifre Çözme: D(77) = 205 × (77 - 8) mod 256 = 205 × 69 mod 256 = 65
+Sifreleme: E(65) = (5 * 65 + 8) mod 256 = 333 mod 256 = 77
+Sifre Cozme: D(77) = 205 * (77 - 8) mod 256 = 205 * 69 mod 256 = 65
 
 Not: 205, 5'in mod 256'daki tersidir.
 ```
 
 ### Neden Affine?
-- **Geri Dönüşlü:** Her karakterin benzersiz bir şifreli karşılığı var
-- **Anahtara Bağlı:** a ve b değerleri gizli tutulur
-- **Hızlı:** Sadece çarpma ve toplama işlemleri
+- **Geri Donuslu:** Her karakterin benzersiz bir sifreli karsiligi var
+- **Anahtara Bagli:** a ve b degerleri gizli tutulur
+- **Hizli:** Sadece carpma ve toplama islemleri
 
 ---
 
-## 4. 🔀 TRANSPOSITION CIPHER
+## 4. TRANSPOSITION CIPHER
 
-### Çalışma Prensibi
+### Calisma Prensibi
 
-Veriyi bloklara böl ve her bloğu belirli bir anahtara göre yeniden sırala.
+Veriyi bloklara bol ve her blogu belirli bir anahtara gore yeniden sirala.
 
-### Örnek
+### Ornek
 
 **Anahtar:** `3142`
-**Yorumlama:** 3. harf önce, 1. harf ikinci, 4. harf üçüncü, 2. harf son
+**Yorumlama:** 3. harf once, 1. harf ikinci, 4. harf ucuncu, 2. harf son
 
 **Orijinal Blok:** `ABCD`
-**Şifreli Blok:** `BADC`
+**Sifreli Blok:** `BADC`
 
 ```
 Pozisyon:  1  2  3  4
 Orijinal:  A  B  C  D
 Anahtar:   3  1  4  2
 Yeni Poz:  2  4  1  3
-Sonuç:     B  A  D  C → BADC
+Sonuc:     B  A  D  C -> BADC
 ```
 
 ### Neden Transposition?
-- **Difüzyon:** Karakterlerin konumları değişir
-- **Konfüzyon:** Orijinal yapı gizlenir
-- **Katmanlı Güvenlik:** Affine ile birlikte çok daha güçlü
+- **Difuzyon:** Karakterlerin konumlari degisir
+- **Konfuzyon:** Orijinal yapi gizlenir
+- **Katmanli Guvenlik:** Affine ile birlikte cok daha guclu
 
 ---
 
-## 5. 🔗 ŞİFRELEME ZİNCİRİ
+## 5. SIFRELEME ZINCIRI
 
-### Adım 1: Metin → Byte
+### Adim 1: Metin -> Byte
 ```
-"AB" → [65, 66]
-```
-
-### Adım 2: Collatz XOR
-Collatz dizisinden üretilen bitlerle XOR:
-```
-[65, 66] XOR [23, 87] → [86, 117]
+"AB" -> [65, 66]
 ```
 
-### Adım 3: Affine Cipher
+### Adim 2: Collatz XOR
+Collatz dizisinden uretilen bitlerle XOR:
+```
+[65, 66] XOR [23, 87] -> [86, 117]
+```
+
+### Adim 3: Affine Cipher
 Her byte'a Affine uygula:
 ```
-E(86) = (5 × 86 + 8) mod 256 = 182
-E(117) = (5 × 117 + 8) mod 256 = 73
-Sonuç: [182, 73]
+E(86) = (5 * 86 + 8) mod 256 = 182
+E(117) = (5 * 117 + 8) mod 256 = 73
+Sonuc: [182, 73]
 ```
 
-### Adım 4: Transposition
-Blokları yeniden sırala:
+### Adim 4: Transposition
+Bloklari yeniden sirala:
 ```
-[182, 73, 0, 0] → key "3142" → [73, 0, 182, 0]
+[182, 73, 0, 0] -> key "3142" -> [73, 0, 182, 0]
 ```
 
-### Adım 5: Hex Çıktı
+### Adim 5: Hex Cikti
 ```
-[73, 0, 182, 0] → "4900b600"
+[73, 0, 182, 0] -> "4900b600"
 ```
 
 ---
 
-## 6. 🔓 ŞİFRE ÇÖZME ZİNCİRİ (Ters Sıra)
+## 6. SIFRE COZME ZINCIRI (Ters Sira)
 
-1. **Hex → Byte**
-2. **Transposition (ters)** - Ters anahtar sıralaması
-3. **Affine (ters)** - `D(y) = a⁻¹ × (y - b) mod m`
-4. **Collatz XOR** - Aynı XOR işlemi (A ⊕ B ⊕ B = A)
-5. **Byte → Metin**
+1. **Hex -> Byte**
+2. **Transposition (ters)** - Ters anahtar siralamasi
+3. **Affine (ters)** - `D(y) = a^(-1) * (y - b) mod m`
+4. **Collatz XOR** - Ayni XOR islemi (A XOR B XOR B = A)
+5. **Byte -> Metin**
 
 ---
 
-## 7. 🔑 ANAHTAR YAPISI
+## 7. ANAHTAR YAPISI
 
-Tam anahtar 4 bileşenden oluşur:
+Tam anahtar 4 bilesenden olusur:
 
 ```
 SEED:AFFINE_A:AFFINE_B:TRANS_KEY
-Örnek: 27:5:8:3142
+Ornek: 27:5:8:3142
 ```
 
-| Bileşen | Değer | Açıklama |
+| Bilesen | Deger | Aciklama |
 |---------|-------|----------|
-| Seed | 27 | Collatz başlangıç değeri |
-| a | 5 | Affine çarpan |
+| Seed | 27 | Collatz baslangic degeri |
+| a | 5 | Affine carpan |
 | b | 8 | Affine toplam |
-| Trans Key | 3142 | Transposition sıralaması |
+| Trans Key | 3142 | Transposition siralamasi |
 
 ---
 
-## 8. ⚖️ 0/1 DENGESİ
+## 8. 0/1 DENGESI
 
 ### Problem
-Şifreli metinde eşit sayıda 0 ve 1 olması isteniyor.
+Sifreli metinde esit sayida 0 ve 1 olmasi isteniyor.
 
-### Çözüm
-1. Şifreleme sonrası bit dağılımını analiz et
-2. Collatz seed seçimi ile dengeyi optimize et
-3. İstatistiksel testlerle doğrula
+### Cozum
+1. Sifreleme sonrasi bit dagilimini analiz et
+2. Collatz seed secimi ile dengeyi optimize et
+3. Istatistiksel testlerle dogrula
 
-### Doğal Denge
-Collatz dizisi doğal olarak belirli bir dengeye sahiptir:
-- Çift adımlar (0) genellikle biraz daha fazla
-- Affine ve Transposition bu dengeyi dağıtır
+### Dogal Denge
+Collatz dizisi dogal olarak belirli bir dengeye sahiptir:
+- Cift adimlar (0) genellikle biraz daha fazla
+- Affine ve Transposition bu dengeyi dagitir
 
 ---
 
-## 9. 🛡️ GÜVENLİK ANALİZİ
+## 9. GUVENLIK ANALIZI
 
-### Güçlü Yönler
-- **Çok Katmanlı:** 3 farklı şifreleme katmanı
-- **Anahtar Uzayı:** Geniş anahtar kombinasyonları
-- **Difüzyon:** Transposition ile karakter yayılımı
-- **Konfüzyon:** Affine ve XOR ile değer gizleme
+### Guclu Yonler
+- **Cok Katmanli:** 3 farkli sifreleme katmani
+- **Anahtar Uzayi:** Genis anahtar kombinasyonlari
+- **Difuzyon:** Transposition ile karakter yayilimi
+- **Konfuzyon:** Affine ve XOR ile deger gizleme
 
-### Zayıf Yönler (Eğitim Amaçlı)
-- Affine cipher tek başına frekans analizine karşı zayıf
+### Zayif Yonler (Egitim Amacli)
+- Affine cipher tek basina frekans analizine karsi zayif
 - Collatz dizisi deterministik
-- Modern standartlara (AES, RSA) kıyasla basit
+- Modern standartlara (AES, RSA) kiyasla basit
 
-### Öneriler
-Bu algoritma **eğitim amaçlıdır**. Gerçek uygulamalarda AES, ChaCha20 gibi standart algoritmalar tercih edilmelidir.
+### Oneriler
+Bu algoritma **egitim amaclidir**. Gercek uygulamalarda AES, ChaCha20 gibi standart algoritmalar tercih edilmelidir.
 
 ---
 
-## 10. 📊 KARMAŞIKLIK ANALİZİ
+## 10. KARMASIKLIK ANALIZI
 
-| İşlem | Zaman | Alan |
+| Islem | Zaman | Alan |
 |-------|-------|------|
-| Collatz Üretimi | O(n) | O(n) |
-| Affine Şifreleme | O(n) | O(1) |
+| Collatz Uretimi | O(n) | O(n) |
+| Affine Sifreleme | O(n) | O(1) |
 | Transposition | O(n) | O(k) |
 | **Toplam** | **O(n)** | **O(n)** |
 
-n: Veri uzunluğu, k: Transposition anahtar uzunluğu
+n: Veri uzunlugu, k: Transposition anahtar uzunlugu
 
 ---
 
-## 11. 🧪 TEST VE DOĞRULAMA
+## 11. TEST VE DOGRULAMA
 
-### Kullanılan Testler
-1. **Monobit Testi** - 0/1 frekans dağılımı
-2. **Ki-Kare Testi** - Blok bazlı rastgelelik
-3. **Runs Testi** - Ardışık bit analizi
-4. **Frekans Analizi** - Byte dağılımı
+### Kullanilan Testler
+1. **Monobit Testi** - 0/1 frekans dagilimi
+2. **Ki-Kare Testi** - Blok bazli rastgelelik
+3. **Runs Testi** - Ardisik bit analizi
+4. **Frekans Analizi** - Byte dagilimi
 
-### Başarı Kriterleri
-- p-value ≥ 0.01: Test başarılı (rastgele davranış)
-- p-value < 0.01: Test başarısız (örüntü tespit edildi)
+### Basari Kriterleri
+- p-value >= 0.01: Test basarili (rastgele davranis)
+- p-value < 0.01: Test basarisiz (oruntu tespit edildi)
 
 ---
 
-## 12. 📝 ÖRNEK KULLANIM
+## 12. ORNEK KULLANIM
 
 ```python
 from collatz_crypto import CollatzCrypto
 
-# Şifreleme
+# Sifreleme
 crypto = CollatzCrypto(seed=27, affine_a=5, affine_b=8, trans_key="3142")
 ciphertext, metadata = crypto.encrypt("Gizli Mesaj")
-print(f"Şifreli: {ciphertext}")
+print(f"Sifreli: {ciphertext}")
 
-# Şifre Çözme
+# Sifre Cozme
 plaintext = crypto.decrypt(ciphertext, metadata['original_length'])
-print(f"Çözülmüş: {plaintext}")
+print(f"Cozulmus: {plaintext}")
 ```
 
 ---
 
-## 13. 🎓 SONUÇ
+## 13. SONUC
 
-Bu algoritma, kriptografi temellerini anlamak için tasarlanmış eğitimsel bir projedir:
+Bu algoritma, kriptografi temellerini anlamak icin tasarlanmis egitimsel bir projedir:
 
-- ✅ Collatz sanısının bit üretiminde kullanımı
-- ✅ Affine cipher matematiksel dönüşümü
-- ✅ Transposition ile pozisyon karıştırma
-- ✅ Çok katmanlı şifreleme yapısı
-- ✅ İstatistiksel test ve doğrulama
-
-**Başarılar! 🚀**
+- Collatz sanisinin bit uretiminde kullanimi
+- Affine cipher matematiksel donusumu
+- Transposition ile pozisyon karistirma
+- Cok katmanli sifreleme yapisi
+- Istatistiksel test ve dogrulama
