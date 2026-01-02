@@ -215,6 +215,6 @@ MIT License
 
 ## Author
 
-**Sait D. Dundar**
+**M. Sait Dündar**
 
 Computer Security Course Project - 2026
